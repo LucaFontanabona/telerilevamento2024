@@ -39,18 +39,42 @@ im.plotRGB(m2006, 1,2,3 ) # nir in rosso 2006 (come di default)
 im.plotRGB(m2006, 2,1,3 ) # nir in verde 2006 
 im.plotRGB(m2006, 2,3,1 ) # nir in blu 2006 
 
-# ora vogliamo avere un indice che possa quantitativamente dire la differenza, non solo "ad occhio", qualitativamente. 
-# considerazioni sui bit
-# 
+# ora vogliamo avere un indice che possa quantitativamente dire la differenza, non solo "ad occhio" qualitativamente. lo dobbiamo calcolare
+# si tratta del DVI (Difference Vegetation Index) quello che facciamo è prendere ogni singolo pixel della banda del nir e gli sottrae il pixel della banda del rosso. Ottengo un valore per ogni pixel, se la risoluzione è di 8 bit ho 256 (da 0 a 255) valori possibili per ogni pixel dell'immagine. 
+# i valori quindi possono variare tra 255 (massimo) a -255 (se ho rosso massimo = 255 e nir minimo =0). Capiamo quindi che indice è fortemente dipendente dalla risoluzione in entrata (se ho 4 bit ho valori da -15 a +15) 
+dvi1992 = m1992[[1]] - m1992[[2]] 
+# ci sarebbe anche un modo per scriverla con il nome delle bande (li devo sapere però..). Ci piace un po' meno, sarebbe: 
+# dvi1992 = m1992$matogrosso~2219_lrg_1 - m1992$matogrosso~2219_lrg_2
 
+# ora posso fare il plot di quello che abbiamo appena sviluppato
+cl<-colorRampPalette (c("darkblue", "yellow", "red", "black")) (100) # gli creo una colorRampPalette 
+plot(dvi1992, col=cl)
 
+# ora faccio uguale anche per il 2006, calcolo il DVI
+dvi2006 = m2006[[1]] - m2006[[2]] # in tutti i casi abbiamo messo = perchè si tratta di un'operazione, in questo caso possiamo usare = (è addiritura meglio) 
 
+# ora plotto anche questo, uso la stessa colorRampPalette di prima
+plot(dvi2006, col=cl)
+
+# esercizio: mettere i due plot vicini
 dev.off() # sempre utile fare un po' di pulizia!
+par(mfrow=c(1,2))
+plot(dvi1992, col=cl)
+plot(dvi2006, col=cl)
 
+# abbiamo capito che dobbiamo normalizzare per confrontare immagini di bit diversi (risolve il problema dei massimi e minimi diversi), calcoliamo NDVI 
+ndvi1992 = dvi1992 / (m1992[[1]] + m1992[[2]])
+ndvi2006 = dvi2006 / (m2006[[1]] + m2006[[2]])
 
+# ora posso plottare (magari già nella stessa schermata con par())
+dev.off() # sempre utile fare un po' di pulizia!
+par(mfrow=c(1,2))
+plot(ndvi1992, col=cl)
+plot(ndvi2006, col=cl)
 
-
-
-
-
+# posso anche fare con funzione di imagery che calcola direttamente ndvi e dvi 
+ndvi2006a <- im.ndvi(m2006, 1, 2) # devo dirgli l'immagine e quali bande sono quale, lui poi fa i calcoli 
+ndvi2006a
+plot(ndvi2006a, col=cl)
+plot(ndvi2006 - ndvi2006a) 
 
