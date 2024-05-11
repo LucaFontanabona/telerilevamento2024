@@ -1,0 +1,159 @@
+\documentclass[12pt]{article} % Ci indica il tipo di documento che stiamo facendo, in questo caso articolo e con dimensione del carattere 12 
+
+% i pacchetti vanno sempre all'inizio
+\usepackage{graphicx} % Ci serve per caricare delle immagini
+\usepackage{hyperref} % Ci serve per inserire collegamenti all'interno del testo
+\usepackage{natbib} % Ci serve per gestire la bibliografia 
+\usepackage{lineno} % Numera le righe del testo
+
+% \ sono le funzioni che hanno {}, dentro le graffe metti gli argomenti della funzione. [] si usano per modifiche strutturali o di stile modifiche strutturali.
+
+\linenumbers % funzione del pacchetto lineno che numera le righe del testo
+
+% inizo del mio documento, ci metto titopo ed autore e data
+
+\begin{document} % dopo un begin ci deve essere sempre un end che chiuda l'operazione, verificare che sia presente in base a quello che inizio
+
+\title{My first LaTeX doc - Love Space Shuttle}
+\author{Luca Fontanabona}
+\date{11 Maggio 2024} % permette di cambiare l'impostazione (americana o europea) della data a seconda degli argomenti che vengono passati. Se non è presente, pesca direttamente la data dal sistema impostandola come mm/gg/aa. 
+
+\maketitle % prende i pezzi scritti sopra begin e li scrive nel documento (serve anche se ci sono gli argomenti dopo begin, forse è il comando di fare il titolo più che scriverlo?) 
+\tableofcontents % mi genera il mio indice automaticamente e lo aggiorna ogni volta che inserisco una nuova sezione (COMODO!!) 
+
+% Voglio fare l'abstract
+
+\begin{abstract} % E poi ci scrivo il testo 
+This study is about the importance of Love between astronauts and their experiences in Love in the fourth dimension
+\end{abstract}
+
+\bigskip % Funzione che so per creare uno spazio più grande, si potrebbe fare anche con \\ alla fine della riga precedente 
+% uso \smallskip se voglio uno spazio più piccolo
+
+\textit{Keywords}: Love, Space Shuttle, Fourth Dimension % Funzione che inserisce la sezione di parole chiave del mio articolo. Abbiamo usato \textit che mette il corsivo all'argomento tra graffe
+
+\section{\textit{Introduction}} % Funzione \section crea una nuova sezione del documento, in questo caso gli dico di fare l'introduzione. Posso anche digrli di scriverla in corsivo, basta usare la funzione di prima. per togliere il numero prima della sezione devo mettere * prima delle graffe. (per qualche motivo però così non ricompare più nell'indice??????)
+
+\label{sec:intro} % assegno un'etichetta alla sezione (in questo caso la chiamo "intro") per richiamarla nel testo con \ref{} 
+
+% Nel caso in cui si sbagli il nome della sezione compariranno dei ?? nella porzione in cui richiamo la \ref{}. Ciò permette di poter cercare eventuali errori all'interno del testo in modo più semplice.
+
+\textbf{Astronauts} % mette in grassetto la parte di testo inserita come argomento
+are seriously alone for a long time, therefore they developed a mechanism to get in touch with their partners at home. This study aims to understand better if they are able to Love using the fourth dimension or if it's all just made up by them as a big joke. \cite{Berscheid2010} % funzione per citare qualcosa dalla bibliografia, devo creare la bibliografia e dargli una lable che uso poi per richiamare nel testo. Quindi devo prima creare la sezione della bibliografia 
+\citep{Berscheid2010} % come prima solo che cito tra parentesi (in realtà mette tutti e due tra parentesi, BOH...) 
+\smallskip
+
+% Come si fa ad andare a capoooooo???? 
+
+
+\citet{Paul2013} % in questo caso invece cito la bibliografia come testo con solo l'anno tra parentesi (in questo tipo di visualizzazione non funziona molto ma la funzione dovrebbe essere ok) 
+says that plants biological relationship is of foundamental importance to fully understand astronauts psyche and their ability. 
+\footnote{In realtà stiamo mettendo in bocca parole all'autore che non sono sue. Scusa Paul..} % funzione per inserire le note a pie di pagina
+\bigskip
+
+To view a YouTube video that has absoloutly nothing to do with our study: 
+\url{https://www.youtube.com/watch?v=Hobdg-Fp9kI} % funzione per inserire un link alla pagina di riferimento
+
+\newpage % Funzione per inserire la pagina nuova 
+
+\section{Methods} % creo la sezione dei metodi
+This study is the best result of my spontaneous imagination during a study session in the Riva del Garda library 
+
+\subsection{Study Area} % funzione che mi permette di creare delle sottosezionin
+Personally I don't think we need to say it aoutloud but.. SPACEEEEES
+
+\subsection{Algoritms}
+
+% Imapariamo a scrivere un'equazione
+% C'è l apossibilità di cercare sul web LaTeX Math e provare a trovare tutte le varie funzioni
+
+For this study we used some equations (mathematical of course)\footnote{Of course we are joking.. no equation needed in serious studies}
+
+\ref{eq:sum}: % richiamo l'equazione che creo qui sotto
+
+\begin{equation} % creo l'equazione che mi interessa
+    T = \sum p_i % \sum inserisce il simbolo della sommatoria, poi ci metto quello che sta dentro alla sommatoria (credo???)
+\label{eq:sum} % Attribuiamo un'etichetta alla eq. per poterla richiamare 
+\end{equation} % Fine dell'equazione
+
+% altra equazione
+Due to the fact that we studied in space we can't forget Newtons equation (although he never went to space) \ref{eq:newton}:
+\begin{equation}
+    F = \sqrt[2]{G \frac{m_1\times m_2}{d^2}} 
+    % \sqrt per mettere sotto radice, [] per mettere la potenza della radie
+    % \frac per fare la frazione (graffe con numeratore e graffe con denominatore)
+    % _ serve per il pedice degli argomenti. 
+    % \times{} è la funzione per la moltiplicazione. 
+\label{eq:newton}
+\end{equation}
+
+\newpage
+
+
+\section{Results}
+Thank to newtons equation we where able to estimate the Love that astronauts are able to feel in the fourth dimension (not much unfortunately..) 
+
+\section{Discussion}
+The results are pretty lame, even if we demonstrated that astronauts are great liars (we thought that they told the truth..) \ref{sec:intro} % richiamo la lable della sezione into
+
+We where able to observe: 
+\begin{itemize} % Funzione per fare un elenco puntato classico(argomento deve essere itemize)
+    \item Astronauts 
+    \item Space 
+    \item Astronauts in space
+    \item Astronauts in space making Love 
+\end{itemize} % chiudo sempre il begin che ho iniziato
+
+Best 3 observations: \footnote{Astronauts making love was not so funny to look at..}
+\begin{enumerate} % Stessa funzione ma cambiando argomento fa un elenco numerato (uso enumerate)
+    \item Space
+    \item Astronauts 
+    \item Astronauts in space 
+\end{enumerate}
+
+\newpage % andiamo ad una pagina nuova, una di tante altre
+
+One of the best images we where able to take from space is \ref{fig:space}
+
+% aggiungiamo un'immagine, usiamo begin come al solito e ci mettiamo "figure"
+
+\begin{figure}
+    \centering % per centrare la figura nel foglio
+    \includegraphics[width=\textwidth]{space.jpg} % [] così l'immagine viene larga quanto il testo. Se volessimo avere l'immagine larga la metà, basterebbe scrivere width=0.5, quindi creare un fattore con cui moltiplicare per avere la riduzione (non funziona molto...) . L'immagine deve essere scaricata sul computer e richiamata con nome ed estensione 
+    \caption{Space from space} % inserisce la didascalia dell'immagine
+    \label{fig:space} % sempre per poterla richiamare nel testo
+\end{figure}
+
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+% facciamo una tabella 
+\hline % disegna una linea orizzontale (horizontal)
+\smallskip
+\textbf{IMPORTANT}
+
+\bigskip
+\textbf{NO astronauts were hurt during this study.}
+\textit{at least not yet..}
+\smallskip
+\hline % chiudo il box disegnando un'altra linea
+% dà degli errori che sono strani, sembra che funzioni tutto in realtà... 
+
+\newpage
+
+\begin{thebibliography}{999}
+    \bibitem[Berscheid,2010]{Berscheid2010} % tra[] metto come voglio che venga scritto nel testo, tra {} metto come voglio chiamarlo, quindi la lable per richiamarlo
+    Berscheid, E. (2010). Love in the fourth dimension. Annual review of psychology, 61, 1-25.
+    
+    \bibitem[Paul et al., 2013]{Paul2013}
+    Paul, A. L., Wheeler, R. M., Levine, H. G., \& Ferl, R. J. (2013). Fundamental plant biology enabled by the space shuttle. American journal of botany, 100(1), 226-234.
+\end{thebibliography}
+
+\end{document}
