@@ -1,0 +1,149 @@
+\documentclass{beamer} % gli diamo la classe delle presentazioni 
+\usepackage{graphicx} % serve per inserire immagini
+
+% Vogliamo cambiare lo stile della presentazione, ci sono matrici con stili diversi che combinano città (=stile) e con colori
+\usetheme{}
+\usecolortheme{crane} % posso anche usare beaver o dove come colori, ce ne sono tanti 
+% Tutto rimane così com'è ma cambia colore o struttura, non si scombina nulla
+
+\title{Presentazione in LaTex}
+\author{Luca Fontanabona}
+\date{maggio 2024}
+
+% Le slides sono frame, dobbiamo inserirle 
+
+\begin{document}
+
+\maketitle % è un modo prefissato per fare il titolo, serve per avere titoli uniformi 
+
+\AtBeginSection[] % fa tutto quello che gli dico ad ogni nuova sessione
+{
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents[currentsection] % gli dico di fare un indice che metterà una slide all'inizio di ogni sezione evidenziando la sezione nuova che sto iniziando
+\end{frame}
+}
+
+\section{Introduzione}
+
+\begin{frame}{My first slide} % Il titolo va tra graffe
+qua posso inserire il testo % testo inserito nella slide
+\end{frame}
+
+\begin{frame}{Itemize}
+Quello di cui andremo a parlare in questa persentazione è: 
+    \begin{itemize}
+        \item Primo argomento
+        \item secondo argomento 
+        \item terzo argomento 
+\end{itemize}
+\end{frame}
+
+%voglio metterli come successivi, non tutti assieme appena arrivo alla slide. Crea molte slide diverse che poi fanno da animazione
+\begin{frame}{Itemize}
+Quello di cui andremo a parlare in questa persentazione è: 
+    \begin{itemize}
+        \item Primo argomenot 
+        \pause \item  secondo argomento 
+        \pause \item  terzo argomento 
+\end{itemize}
+\end{frame}
+
+
+% Dimensioni del testo, può essere utile cambiarla. Usiamo delle funzioni per farlo. Ogni grandezza (in pt) ha un codice, una funzione che mi da la grandezza
+
+\begin{frame}{Prove di grandezza}
+Dovrebbe venire  \Huge{Enorme}
+\end{frame}
+
+\begin{frame}{Andare a capo}
+Vado a capo con doppio backslash \\
+Ora di nuovo \\
+\bigskip 
+Ora dovrei avere uno spazio maggiore 
+\end{frame}
+
+\begin{frame}{Grassetto ma non solo}
+Alcune volte potrebbe essere utile avere qualcosa scritto in \textbf{grassetto} per evitare che le persone si sconcentrino leggendo. Stessa cosa posso fare con \textit{corsivo} per mostrare meglio
+\end{frame}
+
+% vogliamo inserire le formule, c'è wikibook con tutte le info su come trovare il codice 
+\section{Formulas}
+\begin{frame}{Algoritmi} 
+Formula della deviazione standard \\
+\bigskip
+\centering % per fare in modo che venga al centro 
+    \delta = \sqrt{\frac{\displaystyle\sum_{i=1}^{N}{(x- \mu)^2}}{N}} 
+% Scriviamo la funzione, partiamo dalla frazione, inseriamo quello che ci va (numeratore e denominatore), mettiamo poi la sommatoria e l'elevamento alla 2. inseriamo anche il pedice e l'apice della sommatoria e vogliamo che siano sopra, ci mettiamo quindi la funzione \displaystyle per farlo. 
+% Radice quadrata al di fuori di tutto. Per avere simboli strani invece che sd o mu devo mettere lo slash prima che glielo fa riconoscere come tale. 
+\end{frame}
+
+\section{Results} % Per ora non le vedo (??)
+\begin{frame}{Risultati principali} % vogliamo avere un'immagine 
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\linewidth]{space.jpg}
+        % \caption{Enter Caption} perchè di solito non si usa
+        \label{fig:enter-label}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Risultati principali ma due immagini} % vogliamo mettere due immagini questa volta 
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.4\linewidth]{space.jpg}
+        \includegraphics[width=0.4\linewidth]{space.jpg}
+        % \caption{Enter Caption} perchè di solito non si usa
+        % \label{fig:enter-label} in questo caso non ci serve
+\end{figure}
+\end{frame}
+
+% Ora voglio metterne 4 invece che due 
+
+\begin{frame}{Risultati principali ma 4immagini} % Vogliamo mettere 4 immagini questa volta, due sopra e due sotto
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.4\linewidth]{space.jpg}
+        \includegraphics[width=0.4\linewidth]{space.jpg} \\ % il trucco sta nel mettere l'accapo al punto in cui vogliamo andare a capo
+        \includegraphics[width=0.4\linewidth]{space.jpg}
+        \includegraphics[width=0.4\linewidth]{space.jpg} \\ % vado a capo perchè voglio metterci delle cose sotto ancora 
+        % \caption{Enter Caption} perchè di solito non si usa
+        % \label{fig:enter-label} in questo caso non ci serve
+\end{figure}
+\bigskip % se per caso voglio metterci uno spazio più grande. Anche se c'è \\ governa bigskip
+\centering
+\scriptsize{Rocchini et al. 2024} % metto scriptsize per rimpicciolire la scritta, importante tenere le dimensioni uguali e coerenti per tutta la presentazione
+\end{frame}
+
+% Tentativo di fare delle colonne anche se non ha funzionato molto, dobbiamo guardare su Git il codice corretto
+
+\begin{frame}{Colonne}
+    \begin{columns}
+    \begin{column}{width=0.5\textwidth}
+        un po' di testo o anche molto come si vuole 
+    \end{column}
+    \begin{column}{width=0.5\textwidth}
+          \includegraphics[width=0.5\linewidth]{space.jpg}
+    \end{column}
+    \end{columns}
+\end{frame}
+
+% codice recuperato da GitHub del prof alla data 15/05 ancora non funziona
+\begin{frame}{Columns}
+    \begin{columns}
+        \begin{column}{width=.5\textwidth}
+            A small amount of text  here or a larger one as we wish...
+        \end{column}
+        \begin{column}{width=.5\textwidth}
+            \includegraphics[width=.4\linewidth]{stats.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\end{document}
+
+
+
+
+\end{document}
