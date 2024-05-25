@@ -1,70 +1,37 @@
-library(imageRy)  # ogni volta che riparto con R devo dirgli di leggere i pacchetti che mi servono
+library(imageRy)  # ogni volta che riparto con R devo dirgli di leggere i pacchetti che mi servono, li metto tutti all'inizio
 library(terra)
+# install.packages("ggplot2")
+library(ggplot2)
+# install.packages("viridis") # per avere colori che siano adatti anche a persone con daltonia  
+library(viridis)
 
-# Posso usare una funzione del pacchetto "terra" per richiamare tutte le immagini disponibili (DOVE PERò???)
-im.list()
+
+viridisc <- colorRampPalette(viridis(7)) (256) 
+
+
 
 # Per invece andare ad importare l'immagine devo usare im.import("") andando a 
 # mettere il nome dell'immagine tra ""
-b2 <- im.import("sentinel.dolomites.b2.tif") 
+# b2 <- im.import("sentinel.dolomites.b2.tif") 
 
 # Posso anche cambiare la scala di colori dell'imagine, inserisco nella funzone 
 # colorRampPalette() un vettore con i nomi dei colori. devo ricordarmi di 
 # mettere all'esterno della funzione anche il numero di sfuature che voglio
-cl <- colorRampPalette(c("black", "grey", "light grey")) (100)
-plot(b2, col=cl)  # ora però per mostrare l'immagine devo plottarla e dirgli di prendere quei colori che ho appena scelto 
+# cl <- colorRampPalette(c("black", "grey", "light grey")) (100)
+# plot(b2, col=cl)  # ora però per mostrare l'immagine devo plottarla e dirgli di prendere quei colori che ho appena scelto 
 
-# Carico anche le immagini di altre bande di colore oltre al blu (quindi verde, 
-# rosso e infrarosso). 
-b3 <- im.import("sentinel.dolomites.b3.tif")  # verde
-plot(b3, col=cl)
-
-b4 <- im.import("sentinel.dolomites.b4.tif")  # rosso
-plot(b4, col=cl)
-
-b8 <- im.import("sentinel.dolomites.b8.tif")  # infrarosso
-plot(b8, col=cl)
 
 # Posso ora creare un multiframe per aprire (e quindi visualuzzare) tutte le 
 # immagino contemporaneamente. devo dirli come disporre le immagini sullo 
 # schermo, in questo caso per esempio creo uno spazio di 2 x 2 
-par(mfrow=c(2,2))  #dopo aver creato lo spazion mando in sequenza i comandi per inserire i grafici
-plot(b2, col=cl)
-plot(b3, col=cl)
-plot(b4, col=cl)
-plot(b8, col=cl)
+# par(mfrow=c(2,2))  #dopo aver creato lo spazion mando in sequenza i comandi per inserire i grafici
 
-# Posso reare un'immagine fatta di può layer sovrapposti e visualuzzarli 
+# Posso creare un'immagine fatta di può layer sovrapposti e visualuzzarli 
 # singolarmente,  
-stacksent <- c(b2, b3, b4, b8)
-dev.off() # funzione che mi permette di chiudere quello che sto visualuzzando
-plot(stacksent, col=cl)
+# stacksent <- c(b2, b3, b4, b8)
+# dev.off() # funzione che mi permette di chiudere quello che sto visualuzzando
+# plot(stacksent, col=cl)
 
-# Posso chiedere di visualuzzare una sola delle diverse bande ci colore, devo 
-# metterci il doppio [] per indicar che prendo sia le righe ma anche tutte le 
-# colonne 
-plot(stacksent[[4]], col=cl)
-
-
-
-
-
-
-
-# Exercise: plot in a multiframe the bands with different color ramps
-par(mfrow=c(2,2))
-
-clb <- colorRampPalette(c("dark blue", "blue", "light blue")) (100)
-plot(b2, col=clb)
-
-clg <- colorRampPalette(c("dark green", "green", "light green")) (100)
-plot(b3, col=clg)
-
-clr <- colorRampPalette(c("dark red", "red", "pink")) (100)
-plot(b4, col=clr)
-
-cln <- colorRampPalette(c("brown", "orange", "yellow")) (100)
-plot(b8, col=cln)
 
 # RGB space
 # stacksent: 
@@ -72,106 +39,45 @@ plot(b8, col=cln)
 # band3 green element 2, stacksent[[2]]
 # band4 red element 3, stacksent[[3]]
 # band8 nir element 4, stacksent[[4]]
-im.plotRGB(stacksent, r=3, g=2, b=1)
-im.plotRGB(stacksent, r=4, g=3, b=2)
-im.plotRGB(stacksent, r=3, g=4, b=2)
-im.plotRGB(stacksent, r=3, g=2, b=4)
+# im.plotRGB(stacksent, r=3, g=2, b=1)
+# im.plotRGB(stacksent, r=4, g=3, b=2)
+# im.plotRGB(stacksent, r=3, g=4, b=2)
+# im.plotRGB(stacksent, r=3, g=2, b=4)
 
 
-pairs(stacksent)
+pairs(stacksent) # che cosa fa questa funzione?? 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# iniziamo a lavorare con spectral indexes 
-
-# per prima cosa dobbiamo richiamare i pacchetti che ci servono: 
-library(imageRy)
-library(terra) 
-
-# andiamo a cercare l'immagine che ci serve, richiamo la lista 
-im.list()
-
-# oggi usiamo immagini di Mato Grosso 1992 e poi 2006, dobbiamo importarle 
-m1922 <- im.import("matogrosso_l5_1992219_lrg.jpg")
 
 # immagine è creata facendo plot RGB, ha già le bande suddivise in questo modo: 
 # band 1 = nir = R 
 # band 2 = red = G
 # band 3 = green = B 
 # andiamo a ricreare il plot: 
-im.plotRGB(m1992, 1,2,3 )
-
-# exercise: put the nir ontop of the G component 
-im.plotRGB(m1992, 2,1,3 ) # in questo caso il nir (che rappresenta la vegetazione) è di colore verde, si vede un poco di impatto umano cioè un poco di suolo nudo
+# im.plotRGB(m1992, 1,2,3 )
 
 # per evidenziare il suolo nudo lo si fa diventare giallo (occhio umano lo vede meglio), cambiando il nir in blu 
-im.plotRGB(m1992, 2,3,1 )
+# im.plotRGB(m1992, 2,3,1 )
 
-# ora importiamo anche l'altra immagine, quella del 2006. notare come nel nome ci sia il riferimento al satellite (in questo caso ast, nel caso precedente l5). 
-m2006 <- im.import("matogrosso_ast_2006209_lrg.jpg") # si vede bene come l'uomo abbia impattato, vegetazione molto ridotta 
-
-# riplotto mettendo il nir nelle diverse lunghezze: 
-im.plotRGB(m2006, 2,1,3 ) # nir in verde
-im.plotRGB(m2006, 2,3,1 ) # nir in blu 
-
-# ora facciamo un mega multiframe con tutte le immagini, vogliamo sulla prima riga il 92 e sulla seconda il 2006, per poterli visualizzare tutti assieme e fare risaltare l'impatto antropico
-par(mfrow= c(2,3))
-im.plotRGB(m1992, 1,2,3 ) # nir in rosso 1992 (come di default)
-im.plotRGB(m1992, 2,1,3 ) # nir in verde 1992 
-im.plotRGB(m1992, 2,3,1 ) # nir in blu 1992
-im.plotRGB(m2006, 1,2,3 ) # nir in rosso 2006 (come di default)
-im.plotRGB(m2006, 2,1,3 ) # nir in verde 2006 
-im.plotRGB(m2006, 2,3,1 ) # nir in blu 2006 
 
 # ora vogliamo avere un indice che possa quantitativamente dire la differenza, non solo "ad occhio" qualitativamente. lo dobbiamo calcolare
 # si tratta del DVI (Difference Vegetation Index) quello che facciamo è prendere ogni singolo pixel della banda del nir e gli sottrae il pixel della banda del rosso. Ottengo un valore per ogni pixel, se la risoluzione è di 8 bit ho 256 (da 0 a 255) valori possibili per ogni pixel dell'immagine. 
 # i valori quindi possono variare tra 255 (massimo) a -255 (se ho rosso massimo = 255 e nir minimo =0). Capiamo quindi che indice è fortemente dipendente dalla risoluzione in entrata (se ho 4 bit ho valori da -15 a +15) 
-dvi1992 = m1992[[1]] - m1992[[2]] 
+# dvi1992 = m1992[[1]] - m1992[[2]] 
 # ci sarebbe anche un modo per scriverla con il nome delle bande (li devo sapere però..). Ci piace un po' meno, sarebbe: 
 # dvi1992 = m1992$matogrosso~2219_lrg_1 - m1992$matogrosso~2219_lrg_2
 
 # ora posso fare il plot di quello che abbiamo appena sviluppato
-cl<-colorRampPalette (c("darkblue", "yellow", "red", "black")) (100) # gli creo una colorRampPalette 
-plot(dvi1992, col=cl)
+# plot(dvi1992, col=cl)
 
 # ora faccio uguale anche per il 2006, calcolo il DVI
-dvi2006 = m2006[[1]] - m2006[[2]] # in tutti i casi abbiamo messo = perchè si tratta di un'operazione, in questo caso possiamo usare = (è addiritura meglio) 
+# dvi2006 = m2006[[1]] - m2006[[2]] # in tutti i casi abbiamo messo = perchè si tratta di un'operazione, in questo caso possiamo usare = (è addiritura meglio) 
 
 # ora plotto anche questo, uso la stessa colorRampPalette di prima
-plot(dvi2006, col=cl)
+# plot(dvi2006, col=cl)
 
-# esercizio: mettere i due plot vicini
-dev.off() # sempre utile fare un po' di pulizia!
-par(mfrow=c(1,2))
-plot(dvi1992, col=cl)
-plot(dvi2006, col=cl)
 
 # abbiamo capito che dobbiamo normalizzare per confrontare immagini di bit diversi (risolve il problema dei massimi e minimi diversi), calcoliamo NDVI 
-ndvi1992 = dvi1992 / (m1992[[1]] + m1992[[2]])
-ndvi2006 = dvi2006 / (m2006[[1]] + m2006[[2]])
-
-# ora posso plottare (magari già nella stessa schermata con par())
-dev.off() # sempre utile fare un po' di pulizia!
-par(mfrow=c(1,2))
-plot(ndvi1992, col=cl)
-plot(ndvi2006, col=cl)
-
 # posso anche fare con funzione di imagery che calcola direttamente ndvi e dvi 
 ndvi2006a <- im.ndvi(m2006, 1, 2) # devo dirgli l'immagine e quali bande sono quale, lui poi fa i calcoli 
 ndvi2006a
@@ -182,50 +88,21 @@ plot(ndvi2006 - ndvi2006a)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# lezione sulla classificazione delle immagini
-# installo e apro i pacchetti che mi servono
-
-install.packages("ggplot2")
-library(terra)
-library(imageRy)
-library(ggplot2)
-
-# come al solito importiamo le immagini 
-im.list()
-# lavoriamo come esempio sulle immagini del sole date da Solar Orbiter
-sun <- im.import("Solar_Orbiter_s_first_views_of_the_Sun_pillars.jpg")
-sun # per vedere l'immagine
-
 # ora classifichiamo le immagini 
-sunc <- im.classify(sun, num_clusters = 3) # gli diamo come primo argomento l'immagine da classificare, gli diciamo che il numero di cluster che deve essere 3
-sunc # come prima vogliamo vedere quello che abbiamo creato
+# sunc <- im.classify(sun, num_clusters = 3) # gli diamo come primo argomento l'immagine da classificare, gli diciamo che il numero di cluster che deve essere 3
+# sunc # come prima vogliamo vedere quello che abbiamo creato
 
 # ora lavoriamo con le nostre del matogrosso, importiamo 
-m1992 <- im.import("matogrosso_l5_1992219_lrg.jpg" )
-m2006 <- im.import("matogrosso_ast_2006209_lrg.jpg")
+# m1992 <- im.import("matogrosso_l5_1992219_lrg.jpg" )
+# m2006 <- im.import("matogrosso_ast_2006209_lrg.jpg")
 
 # facciamo la classificazione 
-m1992c <- im.classify(m1992, num_clusters = 2) # sta volta gli diciamo di fare due cluster: foresta e human (all'interno del quale mette sia suolo nudo che acqua torbida)
+# m1992c <- im.classify(m1992, num_clusters = 2) # sta volta gli diciamo di fare due cluster: foresta e human (all'interno del quale mette sia suolo nudo che acqua torbida)
 # per il 1992 quello che abbiamo come risultato è: 
 # classe 1 = foresta 
 # classe 2 = human 
 
-m2006c <- im.classify(m2006, num_clusters = 2) # ovviamente anche in questo caso due cluster 
+# m2006c <- im.classify(m2006, num_clusters = 2) # ovviamente anche in questo caso due cluster 
 # di nuovo ci appuntiamo quale clsse corrisponde a quale copertura: 
 # classe 1 = foresta 
 # classe 2 = human 
@@ -315,15 +192,10 @@ p1 + p2
 
 # Ora dobbiamo fare la sottrazione tra immagini, sempre per quantificare il cambiamento (nel tempo)
 # lavoriamo con nuove immagini, siamo stufi del mato grosso.
-# richiamiamo le librerie
-library(terra)
-library(imageRy)
-
-# guardo che dati ho a disposizione
-im.list()
 
 # importiamo i dati (EN01 ed EN02)
-en01 <- im.import("EN_01.png") #sono mappe che non hanno infrarosso o altre cose strane, hanno i soliti 3 livelli. Descrivono il livello di inquinanti in diversei periodi del 2020. Quello che vado a fare è confrontare i diversi livelli (quindi la stessa banda di una immagine con la stessa banda dell'altra immagine). 
+en01 <- im.import("EN_01.png") #sono mappe che non hanno infrarosso o altre cose strane, hanno i soliti 3 livelli. Descrivono il livello di inquinanti in diversei periodi del 2020. 
+# Quello che vado a fare è confrontare i diversi livelli (quindi la stessa banda di una immagine con la stessa banda dell'altra immagine). 
 en13 <- im.import("EN_13.png")
 
 dev.off() #sempre utile fare un po' di pulizia 
@@ -403,10 +275,6 @@ im.plotRGB(greenland, 1,2,4) #creo mappa e gli dico di mettere nel rosso il 2000
 
 # Impariamo ad importare i dati dall'esterno
 
-# Usiamo le librerie che usiamo di solito 
-library(terra)
-library(imageRy)
-
 #Usiamo una funzione: gli diciamo qual è la cartella da cui prendere le cose: set working directory. 
 setwd("C:/Users/lucaf/OneDrive/Desktop/UNI/SCIENZE E GESTIONE DELLA NATURA/Primo anno/telerilevamento") #l'argomento è il percorso della cartella
 
@@ -423,14 +291,6 @@ im.plotRGB(eclissi,1,2,3)
 im.plotRGB(eclissi, 3,2,1)
 im.plotRGB(eclissi, 2,3,1)
 
-# ora posso lavorarci, per es posso fare la differenza tra due bande 
-dif=eclissi[[1]] - eclissi[[2]]
-dif
-
-#provo ad importare un'altra immagine 
-immtemp <- rast("immtemp.png")
-im.plotRGB(immtemp, 1,2,3)
-plot(immtemp)
 
 
 # ora andiamo ad importare i dati da copernicus, faccio proprio come abbiamo appena fatto (devo prima salvare l'immagine sul computer nella working directory) 
@@ -469,11 +329,6 @@ plot(soilcrop[[1]]) #per dire solo il dato senza l'errore
 
 # Variabilità
 
-library(terra)
-library(imageRy)
-
-#facciamo la lista come al solito 
-im.list()
 
 #usiamo l'mmagine sentinel 
 sent <- im.import("sentinel.png") #è un'immagine con 4 bande ma una è di controllo, ci servono solo 3 livelli
@@ -482,16 +337,12 @@ sent <- im.import("sentinel.png") #è un'immagine con 4 bande ma una è di contr
 im.plotRGB(sent, 1, 2, 3)
 #NIR = banda 1, red = banda 2, green = banda 3. Questo vuol dire che la parte rossa (relazionata al NIR) è la parte di bosco e prateria. 
 
-# possiamo giocare un po' con i colori di RGB 
-im.plotRGB(sent, 2,1,3) #si nota un po' meglio la differenza tra prateria e bosco
 
 # ora calcoliamo la deviazione standard (ma solo su una banda, non tutte e tre), quello che facciamo questo caso è sceglierne una, nella prossima lezione facciamo analisi multivariata
 # di solito si usa il livello che maggiormente descrive gli oggetti, quindi in questo caso il nir. 
 nir <- sent[[1]] #per evitare di scrivere sent[[1]] tutte le volte. 
 
-#creo color ramp palette 
-cl<-colorRampPalette(c("black", "blue", "green", "yellow")) (100)
-plot(nir, col=cl)
+
 
 # funzione focal, si usa per calcolare la variabilità, si usa la moving window 
 sd3 <- focal(nir, matrix(1/9, 3,3), fun=sd) 
@@ -503,14 +354,6 @@ sd3 <- focal(nir, matrix(1/9, 3,3), fun=sd)
 #plottiamo questa diversità
 plot(sd3) #vediamo che non si nota moltissimo la variabilità 
 
-#esistono colorampalette che sono adatte anche a persone con daltonia, dobbiamo installare il pacchetot viridis che le contiene 
-install.packages("viridis")
-library(viridis)
-
-# creiamo una nuova color ramp palette con i colori di viridis. ci sono codici che rispecchiamo determinate scale cromatiche all'interno di viridis
-viridisc <- colorRampPalette(viridis(7)) (256)
-plot(sd3, col=viridisc)
-# in questo caso sono visibili da tutti i daltonici
 
 # ora proviamo ad allargare la moving window a 7x7
 sd7 <- focal(nir, matrix(1/49, 7, 7), fun=sd)
@@ -551,30 +394,8 @@ plot(stacksd, col= viridisc)
 # analisi multivariata 
 # funzione compresa in imageRy che ha compito di compattare in una sola dimensioni. Le componenti che restituisce sono le stesse in numero di quelle di partenza (nel nostro caso 4 perchè le bande sono 4) ma estrae la componente principale 
 # richiamiamo le librerie 
-library(imageRy)
-library(terra)
-library(viridis)
 
-# lista dei dati 
-im.list()
 
-# importare i dati 
-sent2 <- im.import("sentinel.dolomites.b2.tif") #banda blu 
-sent3 <- im.import("sentinel.dolomites.b3.tif") #verde  
-sent4 <- im.import("sentinel.dolomites.b4.tif") #rossa 
-sent8 <- im.import("sentinel.dolomites.b8.tif") #nir 
-
-# creiamo uno stack con le bande 
-sentdo <- c(sent2, sent3, sent4, sent8)
-sentdo
-
-# andiamo a visualizzare l'imaggine 
-im.plotRGB(sentdo, r=4,g=3,b=2) #metto il nir nel rosso (vegetazione viene rossa), la componente rossa è visualizzata nel verde e la componente verde è visualizzata nel blu. 
-# posso anche visualizzarlo con il nir nel verde 
-im.plotRGB(sentdo, r=3,g=4,b=2)
-
-#calcola tutte le correlazioni tra le bande 
-dev.off() #sempre utile fare un po' di pulizia 
 pairs(sentdo) #attenzione, correlazione non è causalità. 
 
 #calcoliamo la pca 
