@@ -132,6 +132,21 @@ plot(difndviga2019, col=cl)
 plot(difndviga2021, col=cl)
 plot(difndviga2023, col=cl)
 
+# Notiamo che le scale sono diverse e quindi diventa difficile confrontare visivamente le immagini. 
+# Per risolvere questo problema andiamo a usare la funzione image.plot del pacchetto fields che ci permette di impostare facilmente i 
+# valori degli assi. Tali valori sono impostati a -2 e 2 perchè corrispondono ai massimi valori possibili dati dalla sottrazione tra 
+# immagini
+par(mfrow=c(2,3))
+image.plot(difndvigm2019, col=cl, zlim = c(-2,2))
+image.plot(difndvigm2021, col=cl, zlim = c(-2,2))
+image.plot(difndvigm2023, col=cl, zlim = c(-2,2))
+image.plot(difndviga2019, col=cl, zlim = c(-2,2))
+image.plot(difndviga2021, col=cl, zlim = c(-2,2))
+image.plot(difndviga2023, col=cl, zlim = c(-2,2))
+
+dev.off() # sempre utile fare un po' di pulizia
+
+
 
 # Ora voglio vedere quando la biodiversità è maggiore, per farlo uso la deviazione standard, ma devo capire quale sia la componente più 
 # informativa.
@@ -212,3 +227,15 @@ image.plot(sdastr_20_06_2023, col=vir, axes = FALSE, zlim = c(0,12.5))
 image.plot(sdastr_21_08_2023, col=vir, axes = FALSE, zlim = c(0,12.5))
 
 
+
+
+# Ora che abbiamo capito che giugno è il mese con la maggiore diversità e con la maggiore vegetazione facciamo un confronto diretto
+# tra il 2019 e il 2023 per vedere se ci sono stati dei cambiamenti significativi e quindi se c'è stato deterioramento dell'habitat.
+
+# Facciamo la sottrazione tra le due immagini 
+difndvigiu1923 <- ndviastr_28_06_2019 - ndviastr_20_06_2023 
+
+# La plottiamo usando i colori inferno per rendere meglio le differenze
+plot(difndvigiu1923, col=cl)
+
+dev.off() # sempre utile fare un po' di pulizia 
