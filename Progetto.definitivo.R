@@ -239,3 +239,75 @@ difndvigiu1923 <- ndviastr_28_06_2019 - ndviastr_20_06_2023
 plot(difndvigiu1923, col=cl)
 
 dev.off() # sempre utile fare un po' di pulizia 
+
+
+
+# Dato che la sottrazione non mostra chiaramente una tendenza negli anni facciamo la classificazione e poi il calcolo delle frequenze. 
+# Lavoriamo sull'NDVI che come prima rispecchia al meglio la vegetazione 
+
+# giugno 2019
+clndviastr_28_06_2019 <- im.classify(ndviastr_28_06_2019, num_clusters = 2 )
+
+# giugno 2023
+clndviastr_20_06_2023 <- im.classify(ndviastr_20_06_2023, num_clusters = 2)
+
+
+# plottiamo vicini per vedere come sono venuti 
+par(mfrow=c(1,2))
+plot(clndviastr_28_06_2019, col=vir)
+plot(clndviastr_20_06_2023, col=vir)
+# nel nostro caso hanno la prima banda come quella della vegetazione in entrambi i casi
+
+dev.off() # sempre utile fare un po' di pulizia 
+
+
+# Per completare facciamo la proporzione tra pixel di vegetazione e pixel di suolo nudo o acqua e vediamo in quale immagine abbiamo 
+# valori maggiori
+
+# Calcolo le frequenze dei due cluster
+fclndviastr_28_06_2019 <- freq(clndviastr_28_06_2019)
+fclndviastr_20_06_2023 <- freq(clndviastr_20_06_2023)
+
+# Calcolo il numero totale di pixel per ogni immagine (dovrebbe essere uguale ma per sicurezza lo facciamo due volte)
+totclndviastr_28_06_2019 <- ncell(clndviastr_28_06_2019)
+totclndviastr_20_06_2023 <- ncell(clndviastr_20_06_2023)
+
+# Calcolo la proporzione del numero dei pixel dei due cluster rispetto al totale 
+propclndviastr_28_06_2019 <- fclndviastr_28_06_2019 / totclndviastr_28_06_2019
+propclndviastr_20_06_2023 <- fclndviastr_20_06_2023 / totclndviastr_20_06_2023
+
+# Calcolo la percentuale 
+percclndviastr_28_06_2019 <- propclndviastr_28_06_2019 * 100 
+percclndviastr_20_06_2023 <- propclndviastr_20_06_2023 * 100
+
+
+# Ora vogliamo esportare i dati in forma carina in modo che siano visualizzabili nella presentazione 
+perc <-matrix(c(percclndviastr_28_06_2019[1,3], percclndviastr_20_06_2023[1,3]), nrow = 1, ncol = 2, byrow = T)
+colnames(perc) <- c("2019", "2023")
+rownames(perc) <- "Vegetazione"
+
+perc # verifichiamo che sia andato tutto a buon fine 
+
+# esportiamo i dati in un file excel in modo da creare la tabella
+write.csv2(perc, file = "tabella percentuali.csv")
+
+
+# Facciamo anche un grafico sempre per mostrare i risultati 
+# Trasponiamo la matrice
+perct <- t(perc)
+
+# Creiamo un dataframe per la funzione ggplot
+percdf <- data.frame(perct) 
+
+# Prepariamo i valori da mettere sull'asse x
+anni <- c("2019", "2023")
+
+# Creiamo il plot 
+p19_23 <- ggplot(percdf, aes(x=anni, y=Vegetazione)) + 
+            geom_bar(stat="identity",   fill="darkgreen") +
+            ylim(c(0,100))
+
+# Lo andiamo a visualizzare per verificare che tutto abbia funzionato
+p19_23 
+
+dev.off() # sempre utile fare un po' di pulizia, anche alla fine
