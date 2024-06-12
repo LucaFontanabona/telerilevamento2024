@@ -1,0 +1,355 @@
+\documentclass{beamer} % gli diamo la classe delle presentazioni 
+\usepackage{graphicx} % serve per inserire immagini
+\usepackage{multicol}
+\usepackage{amssymb}
+
+
+ 
+% Vogliamo cambiare lo stile della presentazione, ci sono matrici con stili diversi che combinano città (=stile) e con colori
+\usetheme{Szeged}
+\usecolortheme{beaver} %posso anche usare beaver o dove come colori, ce ne sono tanti 
+% Tutto rimane così com'è ma cambia colore o struttura, non si scombina nulla
+
+\title{Analisi vegetazione delta del Volga (RU)}
+\author{Luca Fontanabona}
+\date{Giugno 2024}
+
+% Le slides sono frame, dobbiamo inserirle 
+
+\begin{document}
+
+\maketitle %è un modo prefissato per fare il titolo, serve per avere titoli uniformi 
+
+\AtBeginSection[] % fa tutto quello che gli dico ad ogni nuova sessione
+{
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents[currentsection] % gli dico di fare un indice che metterà in una slide all'inizio di ogni sezione evidenziando la sezione nuova che inizia 
+\end{frame}
+}
+
+\section{Introduzione}
+
+\begin{frame}{Inquadramento dell'area}
+\begin{multicols}{2}
+Dove ci troviamo? \\
+Russia, Oblast di Astrachan'\\
+\bigskip
+Quale periodo analizziamo? \\
+    \begin{itemize}
+	   \item 2019, 2021, 2023
+	    \item Immagini di: 
+		  \begin{enumerate}
+			 \item fine marzo
+			 \item seconda metà di maggio
+			 \item seconda metà di giungo
+			 \item fino agosto
+		  \end{enumerate}
+    \end{itemize}	 
+\columnbreak
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.9\linewidth]{Astrakhan_Oblast.png}
+        \label{fig:1}
+    \end{figure}
+
+\end{multicols}
+\end{frame}
+
+
+\begin{frame}{Considerazioni ambientali} % Il titolo va tra graffe
+Clima desertico: 
+    \begin{itemize}
+        \item Bassissima piovosità
+        \item Grande escursione termica annuale 
+\end{itemize}
+Vegetazione assente in quasi tutto il periodo dell'anno 
+
+\begin{multicols}{2}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{ClimogrammaAstrachan'.jpg}
+    \label{fig:enter-label}
+\end{figure}
+\columnbreak
+\begin{figure}
+    \centering
+    \includegraphics[angle=-90, width=0.6\linewidth]{1718112587500.jpg}
+    \label{fig:enter-label}
+\end{figure}
+\end{multicols}
+
+\end{frame}
+
+\section{Obiettivo}
+
+\begin{frame}{Ipotesi iniziale e possibili impatti nel tempo}
+Presenza di vegetazione maggiore in primavera (maggio giugno)
+Quasi totale assenza di vegetazione negli altri periodi. \\
+\bigskip 
+Possibile impatto dell'uomo nel tempo, da indagare nel momento di massima vegetazione
+\end{frame}
+
+
+\section{Materiali e metodi}
+
+\begin{frame}{Immagini satellitari}
+\begin{multicols}{2}
+
+Immagini da Copernicus\\
+L'area comprende: 
+	\begin{itemize}
+		\item Due rami del Volga 
+		\item Alcune aree pascolate e coltivate 
+		\item Molte aree naturali
+	\end{itemize}
+\columnbreak
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{inquadramento .png}
+
+    \label{fig:enter-label}
+\end{figure}
+
+\end{multicols}
+
+\end{frame}
+
+% comando per allargare il margine e farci stare le tre colonne successive
+\newcommand{\smallermargins}{
+  \newgeometry{
+    left=0.25in,
+    right=0.25in,
+    top=1in,
+    bottom=1in,
+    includehead,
+    includefoot
+  }
+}
+
+\begin{frame}
+\smallermargins
+  \frametitle{Analisi statistiche}
+  \begin{multicols}{3}
+    Pacchetti usati: 
+		\begin{itemize} 
+			\item imageRy
+			\item terra
+			\item ggplot2
+			\item viridis
+            \item fields
+		\end{itemize}
+    
+    \columnbreak
+    
+   \pause Funzioni principali:
+		\begin{itemize}
+        \setbeamertemplate{itemize item}{\textbullet}
+			\item colorRampPalette
+			\item rast
+			\item im.plotRGB
+			\item plot 
+			\item im.ndvi
+			\item im.pca
+		\end{itemize}
+   \columnbreak
+    
+	\begin{itemize}
+        \setbeamertemplate{itemize item}{\textbullet}
+        \bigskip
+			\item focal
+			\item image.plot
+            \item im.classify
+			\item matrix
+			\item write.csv2
+			\item ggplot
+		\end{itemize}
+  \end{multicols}
+
+\end{frame}
+
+\restoregeometry % serve per far tornare i margini com'erano prima 
+
+\begin{frame}{Immagini di partenza}
+False colors (3 bande: nir, rosso, verde) 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{False colors.png}
+    \label{fig:enter-label}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Immagini di partenza}
+Banda del NIR con colori adatti ai daltonici
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{NIR.png}
+    \label{fig:enter-label}
+\end{figure}
+\end{frame}
+
+\section{Risultati}
+
+\begin{frame}{Risultati NDVI}
+\begin{equation}
+        {NDVI}= \frac{nir-red}{nir+red}
+    \end{equation} 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.65\linewidth]{NDVI.png}
+    \label{fig:enter-label}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Risultati}
+Escludiamo marzo \\
+
+\bigskip
+
+Sono state calcolate le differenze tra immagini per avere una visione migliore su come varia il valore di NDVI 
+
+\begin{equation}
+    Giugno - Maggio
+\end{equation}
+
+\begin{equation}
+    Giugno - Agosto
+\end{equation}
+
+\end{frame}
+
+
+\begin{frame}{Risultati differenze}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{differenze gm ga.png}
+
+        \label{fig:enter-label}
+\end{figure}
+
+\centering
+Problema: scala non è la stessa!
+\end{frame}
+
+
+\begin{frame}{Risultati differenze}
+Scala uguale, vediamo che giugno è mese con maggiore vegetazione (valori di sottrazione positivi)
+\begin{figure}
+        \centering
+        \includegraphics[width=0.8\linewidth]{differenze con stessa scala.png}
+        \label{fig:enter-label}
+    \end{figure}
+
+\end{frame}
+
+
+\begin{frame}{Diversità}
+Operazioni svolte: 
+    \begin{itemize}
+        \item PCA
+        \item standard deviation su componente principale 
+        \item rappresentazione grafica del risultato
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Risultato PCA + sd}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{standard deviation.png}
+    \label{fig:enter-label}
+\end{figure}
+Di nuovo problema della scala 
+\end{frame}
+
+\begin{frame}{Risultato PCA + sd}
+Scala sistemata
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{standard deviation scala giusta.png}
+    \label{fig:enter-label}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Cambiamenti nella vegetazione}
+Obiettivo: indagare se nell'arco di tempo studiato ci sia stato un cambiamento nella vegetazione \\
+Operazione: 
+
+\begin{equation}
+    Giugno 2019 - Giugno 2023
+\end{equation}
+
+\end{frame}
+
+\begin{frame}{Risultato}
+\begin{figure}
+     \centering
+     \includegraphics[width=0.9\linewidth]{2019-2023.png}
+     \caption{Enter Caption}
+     \label{fig:enter-label}
+ \end{figure} 
+\end{frame}
+
+\begin{frame}{Classificazione}
+\begin{multicols}{2}
+Per mostrare meglio: 
+    \begin{itemize}
+        \item Classificazione dell'NDVI
+        \item Calcolo delle frequenze
+        \item Tabella e grafico 
+    \end{itemize}
+    
+\columnbreak
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\linewidth]{classificazione NDVI.png}
+    \label{fig:enter-label}
+\end{figure}
+
+\end{multicols}
+\end{frame}
+
+\begin{frame}{Risultati classificazione}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\linewidth]{tabella percentuali immagine.png}
+    \includegraphics[width=0.7\linewidth]{plot percentuali.png}        
+    \label{fig:enter-label}
+\end{figure}
+\end{frame}
+
+
+
+\section{Conclusioni}
+
+\begin{frame}{Conclusioni}
+    \begin{enumerate}
+        \item Momento con maggiore diversità e vegetazione è giugno 
+        \item \pause Non si rileva grande differenza tra 2019 e 2023, forse dovuto a: \\
+        \begin{itemize}
+            \item \pause grande influenza della stagionalità nella vegetazione 
+            \item \pause arco temporale troppo corto per notare cambiamenti climatici
+        \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{}
+    \centering
+        {\Huge Grazie per l'attenzione!} \\
+        \bigskip
+        \bigskip
+    GitHub: \url{https://github.com/LucaFontanabona}
+    
+\end{frame}
+
+
+\end{document}
