@@ -153,6 +153,22 @@ dev.off() # sempre utile fare un po' di pulizia
 # informativa.
 # Faccio una PCA sulle 9 immagini (di nuovo escludo marzo) e ottengo le componenti principali
 
+# Prima di fare la PCA devo guardare la correlazione tra bande per vedere se andando a prendere una sola componente mi trovo nella 
+# situazione di perdere informazioni 
+
+pairs(astr_29_05_2019)
+pairs(astr_28_06_2019)
+pairs(astr_22_08_2019)
+pairs(astr_21_05_2021)
+pairs(astr_20_06_2021)
+pairs(astr_26_08_2021)
+pairs(astr_18_05_2023)
+pairs(astr_20_06_2023) 
+pairs(astr_21_08_2023)  
+# in alcuni casi c'è poca correlazione, siamo nella situazione di rischio per cui potrei perdere informazioni usando solo la prima 
+# componente
+
+
 # PCA per il 2019
 pcaastr_29_05_2019 <- im.pca(astr_29_05_2019)
 pcaastr_28_06_2019 <- im.pca(astr_28_06_2019)
@@ -167,6 +183,36 @@ pcaastr_26_08_2021 <- im.pca(astr_26_08_2021)
 pcaastr_18_05_2023 <- im.pca(astr_18_05_2023)
 pcaastr_20_06_2023 <- im.pca(astr_20_06_2023)
 pcaastr_21_08_2023 <- im.pca(astr_21_08_2023)
+
+
+# verifico quanta variabilità è spiegata dalla prima banda per ogni immagine 
+totpcaastr_29_05_2019 <- sum(63.468201, 25.842703,  5.828758)
+63.468201 * 100 / totpcaastr_29_05_2019 # ottengo al percentuale di variabilità spiegata dalla prima banda, in questo caso 66.7%
+
+totpcaastr_28_06_2019 <- sum(59.646444, 33.886160, 4.389912)
+59.646444 * 100 / totpcaastr_28_06_2019 # 60,9% di variabilità spiegata dalla prima componente
+
+totpcaastr_22_08_2019 <- sum(48.912601, 26.952636, 5.201326)
+48.912601 * 100 / totpcaastr_22_08_2019 # 60,3% 
+
+totpcaastr_21_05_2021 <- sum(51.274999, 35.890790, 4.470487)
+51.274999 * 100 / totpcaastr_21_05_2021 # 55,8%
+
+totpcaastr_20_06_2021 <- sum(55.639283, 32.113106, 6.824432)
+55.639283 * 100 / totpcaastr_20_06_2021 # 58.8%
+
+totpcaastr_26_08_2021 <- sum(62.350890, 37.213093, 5.271388)
+62.350890 * 100 /totpcaastr_26_08_2021 # 59,5%
+
+totpcaastr_18_05_2023 <- sum(60.00843, 26.34008, 4.41572)
+60.00843 * 100 / totpcaastr_18_05_2023 # 66.1%
+
+totpcaastr_20_06_2023 <- sum(48.585701, 24.949869, 4.735389)
+48.585701 * 100 / totpcaastr_20_06_2023 # 62% 
+
+totpcaastr_21_08_2023 <- sum(56.572630, 27.374998, 5.101752)
+56.572630 * 100 / totpcaastr_21_08_2023 # 63,4%
+# vediamo che nel complesso la variabilità spiegata dalla prima banda è superiore al 50% (tra 55% e 65% circa)
 
 
 # Calcoliamo la variabilità usando la standard deviation per cercare di capire quale immagine è più variabile e quindi a quale momento 
