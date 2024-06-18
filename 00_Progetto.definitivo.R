@@ -1,6 +1,6 @@
 # Progetto esame 
 
-# Analisi vegetazione nrll'area del delta del Volga 
+# Analisi vegetazione nell'area del delta del Volga 
 
 # Prepariamo i pacchetti che ci servono 
 
@@ -13,7 +13,8 @@ library(viridis)
 library(fields) # ci serve alla fine per rappresentare immagini 
 
 # Preparo una colorRampPalette che sia sempre quella per la maggior parte del progetto
-cl <- colorRampPalette(inferno(7)) (256)  #scelgo inferno perchè sembra essere il migliore per rendere le differenze nelle immagini
+cl <- colorRampPalette(inferno(7)) (100)  #scelgo inferno perchè sembra essere il migliore per rendere le differenze nelle immagini
+
 
 # Importo le immagini scaricate sul computer
 # Imposto da working directory come la cartella che contiene le immagini 
@@ -23,7 +24,7 @@ setwd("C:/Users/lucaf/OneDrive/Desktop/UNI/SCIENZE E GESTIONE DELLA NATURA/Primo
 getwd()
 
 # Importo immagini dall'esterno, uso funzione rast().
-# Il nome che assegno contiene la data in cui è stata scattata l'immagine
+# Il nome che assegno contiene la data in cui è stata scattata l'immagine, in modo che sia più agibile dopo lavorarci
 astr_08_03_2019 <- rast("2019-03-08-23_59_Sentinel-2_L2A_False_color.jpg")
 astr_29_05_2019 <- rast("2019-05-29-23_59_Sentinel-2_L2A_False_color.jpg")
 astr_28_06_2019 <- rast("2019-06-28-23_59_Sentinel-2_L2A_False_color.jpg")
@@ -36,11 +37,11 @@ astr_19_03_2023 <- rast("2023-03-19-23_59_Sentinel-2_L2A_False_color.jpg")
 astr_18_05_2023 <- rast("2023-05-18-23_59_Sentinel-2_L2A_False_color.jpg")
 astr_20_06_2023 <- rast("2023-06-20-23_59_Sentinel-2_L2A_False_color.jpg")
 astr_21_08_2023 <- rast("2023-08-21-23_59_Sentinel-2_L2A_False_color.jpg")
-# Sono tutte immagini in false color, quindi con il nir rappresentate come rosso, il rosso come verde e il verde come blu
+# Sono tutte immagini in false color, quindi con il nir rappresentato come rosso, il rosso come verde e il verde come blu
 
 # Visualizziamo assieme tutte le immagini, teniamo su ogni riga un anno 
 par(mfrow=c(3,4))
-im.plotRGB(astr_08_03_2019, 1,2,3) #COLORI SEMBRANO NON REALI, COME MAI?? 
+im.plotRGB(astr_08_03_2019, 1,2,3)
 im.plotRGB(astr_29_05_2019, 1,2,3)
 im.plotRGB(astr_28_06_2019, 1,2,3)
 im.plotRGB(astr_22_08_2019, 1,2,3)
@@ -108,8 +109,8 @@ dev.off() #sempre utile fare un po' di pulizia
 
 
 
-# Per vedere quando c'è maggiore vegetazione faccio la differenza tra le immagini di giugno e agosto e giugno e maggio visto che si vede 
-# già che sono quelle con i valori di NDVI più alti (escludo praticamente marzo). 
+# Per vedere quando c'è maggiore vegetazione faccio la differenza tra le immagini di giugno e agosto e la differenza tra giugno e maggio 
+# visto che si vede già che sono quelle con i valori di NDVI più alti (escludo marzo a priori). 
 # Le differenze sono fatte sul NDVI e non sull'immagine pura perchè questo è una rappresentazione più significativa della vegetazione
 
 # giugno - maggio
@@ -131,8 +132,8 @@ plot(difndvigm2023, col=cl)
 plot(difndviga2019, col=cl)
 plot(difndviga2021, col=cl)
 plot(difndviga2023, col=cl)
+# Problema: notiamo che le scale sono diverse e quindi diventa difficile confrontare visivamente le immagini. 
 
-# Notiamo che le scale sono diverse e quindi diventa difficile confrontare visivamente le immagini. 
 # Per risolvere questo problema andiamo a usare la funzione image.plot del pacchetto fields che ci permette di impostare facilmente i 
 # valori degli assi. Tali valori sono impostati a -2 e 2 perchè corrispondono ai massimi valori possibili dati dalla sottrazione tra 
 # immagini
@@ -173,23 +174,23 @@ pcaastr_21_08_2023 <- im.pca(astr_21_08_2023)
 # Come argomento della funzione focal usiamo la prima componente ottenura dalla PCA appena fatta.
 
 # per il 2019
-sdastr_29_05_2019 <- focal(pcaastr_29_05_2019[[1]], matrix(1/9, 3,3), fun=sd)
-sdastr_28_06_2019 <- focal(pcaastr_28_06_2019[[1]], matrix(1/9, 3,3), fun=sd) 
-sdastr_22_08_2019 <- focal(pcaastr_22_08_2019[[1]], matrix(1/9, 3,3), fun=sd)
+sdastr_29_05_2019 <- focal(pcaastr_29_05_2019[[1]], matrix(1/9, 3, 3), fun=sd)
+sdastr_28_06_2019 <- focal(pcaastr_28_06_2019[[1]], matrix(1/9, 3, 3), fun=sd) 
+sdastr_22_08_2019 <- focal(pcaastr_22_08_2019[[1]], matrix(1/9, 3, 3), fun=sd)
 
 #per il 2021
-sdastr_21_05_2021 <- focal(pcaastr_21_05_2021[[1]], matrix(1/9, 3,3), fun=sd)
-sdastr_20_06_2021 <- focal(pcaastr_20_06_2021[[1]], matrix(1/9, 3,3), fun=sd)
-sdastr_26_08_2021 <- focal(pcaastr_26_08_2021[[1]], matrix(1/9, 3,3), fun=sd)
+sdastr_21_05_2021 <- focal(pcaastr_21_05_2021[[1]], matrix(1/9, 3, 3), fun=sd)
+sdastr_20_06_2021 <- focal(pcaastr_20_06_2021[[1]], matrix(1/9, 3, 3), fun=sd)
+sdastr_26_08_2021 <- focal(pcaastr_26_08_2021[[1]], matrix(1/9, 3, 3), fun=sd)
 
 # per il 2023
-sdastr_18_05_2023 <- focal(pcaastr_18_05_2023[[1]], matrix(1/9, 3,3), fun=sd)
-sdastr_20_06_2023 <- focal(pcaastr_20_06_2023[[1]], matrix(1/9, 3,3), fun=sd)
-sdastr_21_08_2023 <- focal(pcaastr_21_08_2023[[1]], matrix(1/9, 3,3), fun=sd)
+sdastr_18_05_2023 <- focal(pcaastr_18_05_2023[[1]], matrix(1/9, 3, 3), fun=sd)
+sdastr_20_06_2023 <- focal(pcaastr_20_06_2023[[1]], matrix(1/9, 3, 3), fun=sd)
+sdastr_21_08_2023 <- focal(pcaastr_21_08_2023[[1]], matrix(1/9, 3, 3), fun=sd)
 
 
 # creiamo una nuova scala di colori per rendere meglio le immagini che abbiamo ottenuto 
-vir <- colorRampPalette(viridis(7)) (256)
+vir <- colorRampPalette(viridis(7)) (100)
 
 # Plottiamo le immagini come abbiamo sempre fatto per avere un confronto visivo
 par(mfrow=c(3,3))
@@ -202,13 +203,12 @@ plot(sdastr_26_08_2021, col=vir)
 plot(sdastr_18_05_2023, col=vir)
 plot(sdastr_20_06_2023, col=vir)
 plot(sdastr_21_08_2023, col=vir)
-# Si nota un problema: le immagini hanno scale diverse e quindi risulta difficile confrontare visivamente i colori. 
+# Di nuovo problema: le immagini hanno scale diverse e quindi risulta difficile confrontare visivamente i colori. 
 
 dev.off() # sempre utile fare un po' di pulizia
 
 
-# Voglio quindi avere le immagini con la stessa scala
-# Dato che la funzione plot() è poco flessibile nella scala dell'asse z uso la funzione image.plot del pacchetto fields per 
+# Voglio quindi avere le immagini con la stessa scala, come prima uso funzione image.plot del pacchetto fields per 
 # rappresentare le immagini, impostando il limite di scala manualmente
 
 par(mfrow=c(3,3), mar = c(1,1,1,1)) # riduco i margini tra le immagini per avere una visualizzazione più ordinata
@@ -225,6 +225,8 @@ image.plot(sdastr_26_08_2021, col=vir, axes = FALSE, zlim = c(0,12.5))
 image.plot(sdastr_18_05_2023, col=vir, axes = FALSE, zlim = c(0,12.5))
 image.plot(sdastr_20_06_2023, col=vir, axes = FALSE, zlim = c(0,12.5))
 image.plot(sdastr_21_08_2023, col=vir, axes = FALSE, zlim = c(0,12.5))
+
+
 
 
 
