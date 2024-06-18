@@ -1,7 +1,7 @@
 \documentclass{beamer} % gli diamo la classe delle presentazioni 
 \usepackage{graphicx} % serve per inserire immagini
 \usepackage{multicol} % useremo dopo per fare le colonne
-\usepackage{amssymb} 
+\usepackage{amssymb} % serve per inserire simboli matematici
 
 
 % Vogliamo cambiare lo stile della presentazione, ci sono matrici con stili diversi che combinano città (=stile) e con colori
@@ -125,40 +125,38 @@ L'area comprende:
     includefoot
   }
 }
-
-\begin{frame}
-\smallermargins % uso il comando appena creato per ridurre i margini 
-\frametitle{Analisi statistiche}
-\begin{multicols}{3} % questa volta sono 3 colonne
+\begin{frame}}{Analisi statistiche}
+\smallermargins
+\begin{multicols}{3} [\columnsep=1pt] % riduco lo spazio tra le colonne per poter visualizzare bene tutto
 Pacchetti usati: 
 	\begin{itemize} 
-		\item imageRy
-  		\item terra
-		\item ggplot2
-		\item viridis
-        	\item fields
+		\item \texttt{imageRy} % vado a usare il font di R per pacchetti e funzioni
+  		\item \texttt{terra}
+		\item \texttt{ggplot2}
+		\item \texttt{viridis}
+  		\item \texttt{fields}
+	\end{itemize}
+\columnbreak 
+\pause Funzioni principali:
+	\begin{itemize}
+        \setbeamertemplate{itemize item}{\textbullet}
+		\item \texttt{colorRampPalette}
+		\item \texttt{rast}
+		\item \texttt{im.plotRGB}
+		\item \texttt{plot} 
+		\item \texttt{im.ndvi}
+		\item \texttt{im.pca}
 	\end{itemize}
 \columnbreak
-\pause Funzioni principali: % uso \pause per fare in modo che compaia dopo, oer rendere le slide più dinamiche
-	\begin{itemize}
-        \setbeamertemplate{itemize item}{\textbullet} % cambia il simbolo di itemize, per cambiare da quello predefinito
-		\item colorRampPalette
-		\item rast
-		\item im.plotRGB
-		\item plot 
-		\item im.ndvi
-		\item im.pca
-	\end{itemize}
- \columnbreak  
 	\begin{itemize}
         \setbeamertemplate{itemize item}{\textbullet}
         \bigskip
-		\item focal
-		\item image.plot
-		\item im.classify
-		\item matrix
-		\item write.csv2
-		\item ggplot
+		\item \texttt{focal}
+		\item \texttt{image.plot}
+   		\item \texttt{im.classify}
+		\item \texttt{matrix}
+		\item \texttt{write.csv2}
+		\item \texttt{ggplot}
 	\end{itemize}
 \end{multicols}
 \end{frame}
