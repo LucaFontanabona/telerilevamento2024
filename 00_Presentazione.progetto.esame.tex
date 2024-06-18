@@ -32,8 +32,8 @@
 \section{Introduzione}
 
 
-\begin{frame}{Inquadramento dell'area}
-\begin{multicols}{2}
+\begin{frame}{Inquadramento dell'area} % titolo della slide tra aprentesi {} all'inizio
+\begin{multicols}{2} % funzione che crea le colonne, devo mettergli tra parentesi {} quante 
 Dove ci troviamo? \\
 Russia, Oblast di Astrachan'\\
 \bigskip
@@ -48,7 +48,7 @@ Quale periodo analizziamo? \\
 				\item fino agosto
 			\end{enumerate}
 	\end{itemize}	 
-\columnbreak
+\columnbreak % serve per dirgli che voglio iniziare la nuova colonna
 	\begin{figure}[h]
         	\centering
         	\includegraphics[width=0.9\linewidth]{Astrakhan_Oblast.png}
@@ -58,7 +58,7 @@ Quale periodo analizziamo? \\
 \end{frame}
 
 
-\begin{frame}{Considerazioni ambientali} % Il titolo va tra graffe
+\begin{frame}{Considerazioni ambientali} 
 Clima desertico: 
 	\begin{itemize}
         	\item Bassissima piovosità
@@ -114,7 +114,7 @@ L'area comprende:
 \end{multicols}
 \end{frame}
 
-% Creo un nuovo comando per allargare il margine e farci stare le tre colonne successive
+% Creo un nuovo comando per allargare il margine, mi serve dopo per farci stare le tre colonne. 
 \newcommand{\smallermargins}{
   \newgeometry{
     left=0.25in,
@@ -127,9 +127,9 @@ L'area comprende:
 }
 
 \begin{frame}
-\smallermargins % uso il comando di prima per ridurre i margini 
+\smallermargins % uso il comando appena creato per ridurre i margini 
 \frametitle{Analisi statistiche}
-\begin{multicols}{3}
+\begin{multicols}{3} % questa volta sono 3 colonne
 Pacchetti usati: 
 	\begin{itemize} 
 		\item imageRy
@@ -139,9 +139,9 @@ Pacchetti usati:
         	\item fields
 	\end{itemize}
 \columnbreak
-\pause Funzioni principali:
+\pause Funzioni principali: % uso \pause per fare in modo che compaia dopo, oer rendere le slide più dinamiche
 	\begin{itemize}
-        \setbeamertemplate{itemize item}{\textbullet}
+        \setbeamertemplate{itemize item}{\textbullet} % cambia il simbolo di itemize, per cambiare da quello predefinito
 		\item colorRampPalette
 		\item rast
 		\item im.plotRGB
@@ -164,7 +164,7 @@ Pacchetti usati:
 \end{frame}
 
 
-\restoregeometry % serve per far tornare i margini com'erano prima 
+\restoregeometry % serve per far tornare i margini com'erano prima, altrimenti sembra che restino cambiati anche nelle slide successive
 
 
 \begin{frame}{Immagini di partenza}
@@ -191,7 +191,7 @@ Banda del NIR con colori adatti ai daltonici
 
 
 \begin{frame}{Risultati NDVI}
-	\begin{equation}
+	\begin{equation} % serve per inserire le equazioni, nel nostro caso è una formulina estremamente banale
 		{NDVI}= \frac{nir-red}{nir+red}
 	\end{equation} 
 	\begin{figure}
@@ -221,7 +221,7 @@ Sono state calcolate le differenze tra immagini per avere una visione migliore s
 		\includegraphics[width=0.7\linewidth]{differenze gm ga.png}
 		\label{fig:enter-label}
 	\end{figure}
-\centering
+\centering % si usa per centrare il testo
 Problema: scala non è la stessa!
 \end{frame}
 
@@ -279,8 +279,7 @@ Operazione:
 \begin{frame}{Risultato}
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.9\linewidth]{2019-2023.png}
-		\caption{Enter Caption}
+		\includegraphics[width=0.85\linewidth]{2019-2023.png}
   		\label{fig:enter-label}
 	\end{figure} 
 \end{frame}
@@ -329,12 +328,30 @@ Per mostrare meglio:
 \end{frame}
 
 
+% Andiamo a impostare un'immagine come sfondo per l'ultima slide per renderla più carina
+\setbeamertemplate{background}{
+        \includegraphics[width=\paperwidth, height=\paperheight, keepaspectratio]{photo1718705873.jpeg}
+        }
+        
 \begin{frame}{}
-\centering
-{\Huge Grazie per l'attenzione!} \\
+\bigskip % non sarà il modo più elegante ma funziona
 \bigskip
 \bigskip
-GitHub: \url{https://github.com/LucaFontanabona}ù
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\centering {\textcolor{white}{\Huge Grazie per l'attenzione!}} \\
+\smallskip
+\textcolor{white}{GitHub: \url{https://github.com/LucaFontanabona}}
 \end{frame}
 
 
